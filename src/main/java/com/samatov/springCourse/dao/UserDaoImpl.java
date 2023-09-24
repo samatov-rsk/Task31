@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional
 public class UserDaoImpl implements UserDAO {
 
     @PersistenceContext
@@ -19,7 +18,7 @@ public class UserDaoImpl implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         String jpql = "select u from User u";
-        TypedQuery<User> query = entityManager.createQuery(jpql,User.class);
+        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
         return query.getResultList();
     }
 

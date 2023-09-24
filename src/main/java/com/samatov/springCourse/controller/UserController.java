@@ -21,21 +21,20 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired()
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String index(Model model) {
-        List userList = userService.getAllUsers();
-        model.addAttribute("users", userList);
+        model.addAttribute("users", userService.getAllUsers());
         return "index";
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+    public String getUser(@PathVariable("id") int userId, Model model) {
+        model.addAttribute("user", userService.getUserById(userId));
         return "show";
     }
 
@@ -44,7 +43,7 @@ public class UserController {
         return "new";
     }
 
-    @PostMapping()
+    @PostMapping
     public String create(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/users";
@@ -57,14 +56,14 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.updateUser(id, user);
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int userId) {
+        userService.updateUser(userId, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.removeUser(id);
+    public String delete(@PathVariable("id") int userId) {
+        userService.removeUser(userId);
         return "redirect:/users";
     }
 }
