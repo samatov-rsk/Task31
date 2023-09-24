@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
@@ -19,14 +18,16 @@ public class UserServiceImpl implements UserService {
         this.userDAO = userDAO;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
         return userDAO.getAllUsers();
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public User getUserById(long id) {
-        return userDAO.getUserById(id);
+    public User getUserById(Integer userId) {
+        return userDAO.getUserById(userId);
     }
 
     @Transactional
@@ -37,13 +38,13 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void removeUser(long id) {
-        userDAO.removeUser(id);
+    public void removeUser(Integer userId) {
+        userDAO.removeUser(userId);
     }
 
     @Transactional
     @Override
-    public void updateUser(long id, User user) {
-        userDAO.updateUser(id, user);
+    public void updateUser(Integer userId, User user) {
+        userDAO.updateUser(userId, user);
     }
 }
