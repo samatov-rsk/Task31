@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -33,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable("id") int userId, Model model) {
+    public String getUser(@PathVariable("id") Integer userId, Model model) {
         model.addAttribute("user", userService.getUserById(userId));
         return "show";
     }
@@ -50,19 +48,19 @@ public class UserController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
+    public String edit(Model model, @PathVariable("id") Integer userId) {
+        model.addAttribute("user", userService.getUserById(userId ));
         return "edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int userId) {
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Integer userId) {
         userService.updateUser(userId, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int userId) {
+    public String delete(@PathVariable("id") Integer userId) {
         userService.removeUser(userId);
         return "redirect:/users";
     }

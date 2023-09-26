@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +23,11 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public User getUserById(Integer userId) {
-        return entityManager.find(User.class, userId);
+        User user = entityManager.find(User.class, userId);
+        if (user == null) {
+            throw new RuntimeException("User not found by id %s".formatted(userId));
+        }
+        return user;
     }
 
     @Override
