@@ -15,5 +15,4 @@ public interface UserDAO {
     void removeUser(Integer userId);
 
     void updateUser(Integer userId, User user);
-
 }
